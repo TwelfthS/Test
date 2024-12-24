@@ -6,18 +6,20 @@ public class Movement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Camera mainCamera;
-    public LineRenderer lineRenderer;
+    // public LineRenderer lineRenderer;
+    public FightScript fightScript;
+    // public Vector2 spawnPoint = new Vector2(-8.36, -4.44);
     private float moveSpeed = 6;
     private Vector2 velocity;
     void Start()
     {
-        lineRenderer.positionCount = 2;
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.SetPosition(0, Vector2.zero);
+        // lineRenderer.positionCount = 2;
+        // lineRenderer.startColor = Color.black;
+        // lineRenderer.endColor = Color.black;
+        // lineRenderer.startWidth = 0.1f;
+        // lineRenderer.endWidth = 0.1f;
+        // lineRenderer.useWorldSpace = false;
+        // lineRenderer.SetPosition(0, Vector2.zero);
     }
 
     void Update()
@@ -29,11 +31,14 @@ public class Movement : MonoBehaviour
         // direction = directionSlider.GetDirection();
         // lineRenderer.SetPosition(0, transform.position);
         // Debug.Log(transform.right);
-        lineRenderer.SetPosition(1, new Vector2(2, 0));
+        // lineRenderer.SetPosition(1, new Vector2(2, 0));
         // Debug.Log("Movement: " + transform.right);
         // Debug.Log(transform.position + transform.right * 5);
         // transform.LookAt(mousePos + Vector3.up * transform.position.y);
         velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * moveSpeed;
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            fightScript.MakeShot();
+        }
     }
 
     void FixedUpdate()

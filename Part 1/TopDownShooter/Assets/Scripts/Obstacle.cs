@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour
     // }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("triggered");
+        // Debug.Log("triggered");
         if (other.gameObject.CompareTag("Bullet")) {
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
             bullet.ChangeDirection();
