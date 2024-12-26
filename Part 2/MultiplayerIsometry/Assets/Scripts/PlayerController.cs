@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public Rigidbody rb;
     private float speed = 5f;
@@ -12,8 +13,10 @@ public class PlayerController : MonoBehaviour
     private Matrix4x4 isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
     private bool isSpeedingUp;
     void Update() {
-        GatherInput();
-        Look();
+        if (isLocalPlayer) {
+            GatherInput();
+            Look();            
+        }
     }
 
     void FixedUpdate() {

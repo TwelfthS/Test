@@ -19,7 +19,8 @@ public class CoinSpawner : MonoBehaviour
     //     }
     // }
 
-    public void SpawnCoin() {
-        Instantiate(coinPrefab, transform);
+    public GameObject SpawnCoin() {
+        GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        return coin;
     }
 }
