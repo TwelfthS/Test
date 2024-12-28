@@ -5,16 +5,8 @@ using Mirror;
 
 public class NetworkManagerCustom : NetworkManager
 {
-    // public GameObject playerPrefab;
-    public Transform[] spawnPoints;
+    [SerializeField] private Transform[] spawnPoints;
     private int nextIndex = 0;
-
-    // [Server]
-    // public void SpawnPlayer(NetworkConnection conn) {
-
-        
-    //     NetworkServer.Spawn(playerInstance, conn);
-    // }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
         if (nextIndex < 4) {

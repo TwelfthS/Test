@@ -5,18 +5,19 @@ using Mirror;
 
 public class CoinScript : NetworkBehaviour
 {
-    public GameSystem gameSystem;
-    private bool isCollected = false;
-    void Start () {
-        gameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+    [SerializeField] private GameObject coinMarkerPrefab;
+    private GameObject coinMarker;
+    void Start() {
+        coinMarker = GameObject.Find("CoinMarker");
+        if (coinMarker != null) {
+            coinMarker.transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+        }
     }
     private void OnTriggerEnter(Collider other) {
-        if (isServer && other.gameObject.CompareTag("Player") && !isCollected) {
-            // Debug.Log("here");
-            isCollected = true;
+        if (isServer && other.gameObject.CompareTag("Player")) {
             PlayerScore playerScore = other.gameObject.GetComponent<PlayerScore>();
             playerScore.AddScore(5);
-            gameSystem.SpawnCoin();
+            GameSystem.Instance.SpawnCoin();
             Destroy(this.gameObject);
             NetworkServer.Destroy(this.gameObject);
         }

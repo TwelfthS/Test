@@ -7,8 +7,8 @@ using Mirror;
 public class PlayerScore : NetworkBehaviour
 {
     [SyncVar]
-    public float score = 0;
-    public TMP_Text scoreText;
+    private float score = 0;
+    private TMP_Text scoreText;
     void Start () {
         if (isLocalPlayer) {
             scoreText = GameObject.Find("PlayerScore").GetComponent<TMP_Text>();
@@ -17,34 +17,17 @@ public class PlayerScore : NetworkBehaviour
     }
     [Server]
     public void AddScore(float scoreToAdd) {
-        // Debug.Log("Im here");
-        // if (isLocalPlayer) {
-            // Debug.Log("And here");
-            score += scoreToAdd;
-            
-            RpcUpdateScore(score);
-        // }
+        score += scoreToAdd;
+        RpcUpdateScoreText();
+        if (score >= 100) {
+            GameSystem.Instance.GameOver();
+        }
     }
 
-    // [Command]
-    // private void CmdUpdateScore(float updatedScore) {
-    //     score = updatedScore;
-    //     RpcUpdateScore(updatedScore);
-    // }
-
     [ClientRpc]
-    private void RpcUpdateScore(float updatedScore) {
-        score = updatedScore;
+    private void RpcUpdateScoreText() {
         if (isLocalPlayer) {
-            // Debug.Log("In rpc");
             scoreText.text = "Score: " + score;
-        }
-        if (score >= 100) {
-            if (isLocalPlayer) {
-                Debug.Log("You won!");
-            } else {
-                Debug.Log("The other player won!");
-            }
         }
     }
 }

@@ -6,10 +6,18 @@ using Mirror;
 
 public class GameSystem : NetworkBehaviour
 {
-    public CoinSpawner lastActivatedSpawner;
-    public CoinSpawner[] coinSpawners;
+    public static GameSystem Instance {get; private set;}
+    private CoinSpawner lastActivatedSpawner;
+    private CoinSpawner[] coinSpawners;
     private float spawnTimeout = 2f;
     private bool hasSpawned = false;
+    void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(this.gameObject);
+        } else {
+            Instance = this;
+        }
+    }
     void Start()
     {
         coinSpawners = FindObjectsOfType<CoinSpawner>();
@@ -21,27 +29,27 @@ public class GameSystem : NetworkBehaviour
             if (spawnTimeout <= 0 && !hasSpawned) {
                 SpawnCoin();
                 hasSpawned = true;
-                // spawnTimeout = 5f;
-            }            
+            }
         }
     }
-    // [SyncEvent]
-    // public event EventCoinSpawned;
     [Server]
     public void SpawnCoin() {
-        // Debug.Log("spawning");
-        CoinSpawner[] coinSpawnersFiltered = coinSpawners.Where(x => x != lastActivatedSpawner).ToArray();
-        CoinSpawner randomSpawner = coinSpawners[Random.Range(0, coinSpawnersFiltered.Length)];
+        CoinSpawner[] coinSpawnersFiltered = lastActivatedSpawner == null ? coinSpawners : GetThreeClosestSpawners(lastActivatedSpawner);
+        int randomIndex = Random.Range(0, coinSpawnersFiltered.Length);
+        CoinSpawner randomSpawner = coinSpawnersFiltered[randomIndex];
         GameObject coin = randomSpawner.SpawnCoin();
         lastActivatedSpawner = randomSpawner;
-        // Debug.Log(randomSpawner);
         NetworkServer.Spawn(coin);
-        // EventCoinSpawned.Invoke();
     }
 
-    // [ClientCallback]
-    // private void Update() {
-    //     if (!hasAuthority) { return; }
+    public CoinSpawner[] GetThreeClosestSpawners(CoinSpawner target) {
+        CoinSpawner[] sortedSpawners = coinSpawners.OrderBy(obj => Vector3.Distance(target.gameObject.transform.position, obj.gameObject.transform.position)).ToArray();
+        CoinSpawner[] result = sortedSpawners.Skip(4).ToArray();
+        return result;
+    }
 
-    // }
+    [Server]
+    public void GameOver() {
+        Debug.Log("Game over");
+    }
 }
