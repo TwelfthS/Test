@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DirectionLine : MonoBehaviour
 {
-    public LineRenderer lineRenderer;
+    private LineRenderer lineRenderer;
     void Start() {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
@@ -17,6 +17,6 @@ public class DirectionLine : MonoBehaviour
     }
 
     void Update() {
-        lineRenderer.SetPosition(1, new Vector2(2, 0));
+        lineRenderer.SetPosition(1, new Vector2(0.5f, 0));
     }
 }

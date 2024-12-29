@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public GameObject player;
-    public FightScript fightScript;
-    // public Vector2 spawnPoint = new Vector2(8.36, 4.44);
-    // public Rigidbody2D rb;
+    [SerializeField] private GameObject player;
+    private FightScript fightScript;
     private float moveSpeed = 2;
     private float shootTimer = 1f;
     private Vector2 sidewaysMovement;
+    void Start() {
+        fightScript = GetComponent<FightScript>();
+    }
     void Update() {
         sidewaysMovement = Vector2.zero;
         if (shootTimer > 0) {
@@ -22,7 +23,6 @@ public class EnemyMovement : MonoBehaviour
                 fightScript.MakeShot();
                 shootTimer = 1f;
             } else if (hit.collider.gameObject.CompareTag("Obstacle")) {
-                // Debug.Log("here");
                 sidewaysMovement = new Vector2(transform.right.y, -transform.right.x * 3);
             }
         }

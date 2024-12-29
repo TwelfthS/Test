@@ -5,27 +5,26 @@ using TMPro;
 
 public class GameSystem : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject enemy;
-    public TMP_Text playerScoreText;
-    public TMP_Text enemyScoreText;
-    public int playerScore;
-    public int enemyScore;
-    private Vector2 playerSpawnPoint = new Vector2(-8.36f, -4.44f);
-    private Vector2 enemySpawnPoint = new Vector2(8.36f, 4.44f);
+    public static GameSystem Instance;
+    [SerializeField] private CharacterInfo playerInfo;
+    [SerializeField] private CharacterInfo enemyInfo;
+    private Bullet[] allBullets;
+    void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(this.gameObject);
+        } else {
+            Instance = this;
+        }
+    }
     void Start() {
         Restart();
     }
     public void Restart() {
-        player.transform.position = playerSpawnPoint;
-        enemy.transform.position = enemySpawnPoint;
-        playerScore = 0;
-        enemyScore = 0;
-        UpdateScore();
-    }
-
-    public void UpdateScore() {
-        playerScoreText.text = playerScore.ToString();
-        enemyScoreText.text = enemyScore.ToString();
+        playerInfo.Reset();
+        enemyInfo.Reset();
+        allBullets = FindObjectsOfType<Bullet>();
+        foreach (Bullet bullet in allBullets) {
+            Destroy(bullet.gameObject);
+        }
     }
 }
