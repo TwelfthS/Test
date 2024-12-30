@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 380583342106188653}
   - component: {fileID: 5019525383539928012}
   - component: {fileID: 2859206599824668203}
-  - component: {fileID: 8707634914008122700}
   m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8707634914008122700
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2908642865397936115}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8118813993593373857
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +102,7 @@ GameObject:
   - component: {fileID: -8020264252556463951}
   - component: {fileID: 6787405472150457866}
   - component: {fileID: -5584905208415004272}
+  - component: {fileID: 7714910527535581452}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -259,8 +238,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
+  m_Interpolate: 1
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6958014661899324687
 MonoBehaviour:
@@ -355,3 +334,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105b4e45b1951bd4586bd35b32fd29db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7714910527535581452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118813993593373857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca602ede3b18d694cbdfb3766b5cc010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: {fileID: 0}
+  scoreText: {fileID: 0}
+  statusText: {fileID: 0}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Mirror;
+using TMPro;
 
 public class GameSystem : NetworkBehaviour
 {
@@ -37,6 +38,7 @@ public class GameSystem : NetworkBehaviour
         CoinSpawner[] coinSpawnersFiltered = lastActivatedSpawner == null ? coinSpawners : GetThreeClosestSpawners(lastActivatedSpawner);
         int randomIndex = Random.Range(0, coinSpawnersFiltered.Length);
         CoinSpawner randomSpawner = coinSpawnersFiltered[randomIndex];
+        Debug.Log("filtered: " + coinSpawnersFiltered);
         GameObject coin = randomSpawner.SpawnCoin();
         lastActivatedSpawner = randomSpawner;
         NetworkServer.Spawn(coin);
@@ -48,8 +50,8 @@ public class GameSystem : NetworkBehaviour
         return result;
     }
 
-    [Server]
-    public void GameOver() {
+    [ClientRpc]
+    public void RpcGameOver() {
         Debug.Log("Game over");
     }
 }

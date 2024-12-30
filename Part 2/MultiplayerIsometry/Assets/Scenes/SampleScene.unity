@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 129549864}
   - component: {fileID: 129549863}
   m_Layer: 5
-  m_Name: PlayerScore
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2967,7 +2967,7 @@ Transform:
   m_GameObject: {fileID: 1873838485}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.692289, y: 23.335524, z: 5.892846}
+  m_LocalPosition: {x: -4.95, y: 23.335524, z: 16.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3152,7 +3152,7 @@ Transform:
   m_GameObject: {fileID: 1987853270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.3714705, y: 23.335524, z: -13.077153}
+  m_LocalPosition: {x: 17.62, y: 23.335524, z: -2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

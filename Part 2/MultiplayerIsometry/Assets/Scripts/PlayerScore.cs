@@ -1,33 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using Mirror;
 
 public class PlayerScore : NetworkBehaviour
 {
+    public delegate void ScoreChanged(float score);
+    public event ScoreChanged OnScoreChanged;
     [SyncVar]
     private float score = 0;
-    private TMP_Text scoreText;
-    void Start () {
-        if (isLocalPlayer) {
-            scoreText = GameObject.Find("PlayerScore").GetComponent<TMP_Text>();
-            scoreText.text = "Score: " + score;            
+    public float ScoreValue
+    {
+        get { return score; }
+        set 
+        {
+            score = value;
+            OnScoreChanged?.Invoke(score);
         }
     }
     [Server]
     public void AddScore(float scoreToAdd) {
-        score += scoreToAdd;
-        RpcUpdateScoreText();
+        ScoreValue += scoreToAdd;
+        RpcUpdateScore(ScoreValue);
         if (score >= 100) {
-            GameSystem.Instance.GameOver();
+            GameSystem.Instance.RpcGameOver();
         }
     }
 
     [ClientRpc]
-    private void RpcUpdateScoreText() {
-        if (isLocalPlayer) {
-            scoreText.text = "Score: " + score;
-        }
+    public void RpcUpdateScore(float changedScore) {
+        ScoreValue = changedScore;
     }
 }
